@@ -176,9 +176,14 @@
             <p>Before applying machine learning algorithms, a rigorous preprocessing pipeline was executed. Text was lowercased, HTTP URLs were removed using Regular Expressions, and all numerical digits and punctuation marks were excised. Furthermore, a custom dictionary of stop words was purged during the tokenization phase.</p>
             
             <div class="image-container">
-                <div class="image-placeholder">[ Insert 'tfidf_lollipop.png' Here ]</div>
-                <figcaption>Figure 1: Lollipop charts showcasing the highest weighted TF-IDF words for both classes.</figcaption>
-            </div>
+                    <img src="tfidf_pol.png" alt="TF-IDF Lollipop Chart">
+                    <figcaption>Figure 1: Lollipop charts showcasing the highest weighted TF-IDF words for politics class.</figcaption>
+                </div>
+
+            <div class="image-container">
+                    <img src="tfidf_sports.png" alt="TF-IDF Lollipop Chart">
+                    <figcaption>Figure 1: Lollipop charts showcasing the highest weighted TF-IDF words for both class.</figcaption>
+                </div>
 
             <p>To understand the semantic divergence between the two classes, term frequencies were analyzed. The vocabulary space is highly orthogonal. The Sports category is heavily anchored by terms such as <em>"game", "nfl", "team"</em>, and <em>"football"</em>. Conversely, the Politics category is dominated by legislative terminology like <em>"clinton", "gop", "obama"</em>, and <em>"senate"</em>.</p>
 
@@ -206,7 +211,9 @@
             <p>Unigrams fail to capture local context (e.g., "white house" vs. "white" and "house"). The tokenization function was expanded to support bigrams by appending adjacent word pairs. To accommodate the exponential explosion of the feature space, the max features limit was expanded to 15,000.</p>
 
             <div class="image-container">
-                <div class="image-placeholder">[ Insert 'vocab_size.png' Here ]</div>
+    
+                    <img src="vocab_size.png" alt="TF-IDF Lollipop Chart">
+               
                 <figcaption>Figure 3: Vocabulary size constraints applied to the three feature representation matrices.</figcaption>
             </div>
         </section>
@@ -257,7 +264,7 @@
             </table>
 
             <div class="image-container">
-                <div class="image-placeholder">[ Insert 'comparison_bar.png' Here ]</div>
+               <img src="comp_bar.png" alt="TF-IDF Lollipop Chart">
                 <figcaption>Figure 4: Grouped bar chart comparing the test accuracies of all 9 algorithmic combinations.</figcaption>
             </div>
 
@@ -265,12 +272,12 @@
             <p>For gradient-based models (Logistic Regression and SVM), TF-IDF and N-grams provided the necessary normalization to stabilize the weights, allowing them to achieve peak performance. The addition of Bigrams marginally improved the SVM's accuracy (98.05%) by capturing multi-word context, but slightly degraded Naive Bayes, likely because adding 5,000 bi-gram features increased sparsity and violated the algorithm's core assumption of feature independence.</p>
 
             <div class="image-container">
-                <div class="image-placeholder">[ Insert 'conf_matrix.png' Here ]</div>
+                <img src="conf_matrix.png" alt="TF-IDF Lollipop Chart">
                 <figcaption>Figure 5: Normalized Confusion Matrix for the SVM, demonstrating minimal false predictions.</figcaption>
             </div>
 
             <div class="image-container">
-                <div class="image-placeholder">[ Insert 'learning_curve.jpg' Here ]</div>
+               <img src="lc.png" alt="TF-IDF Lollipop Chart">
                 <figcaption>Figure 6: Learning curves illustrating stability and convergence between Training and Validation folds.</figcaption>
             </div>
         </section>
