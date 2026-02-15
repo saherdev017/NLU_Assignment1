@@ -1,141 +1,219 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sports vs. Politics: Binary Text Classification</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #34495e;
-            --accent-color: #3498db;
-            --bg-color: #fafafa;
-            --text-color: #333333;
-            --border-color: #e0e0e0;
+            --primary-color: #0f172a;     /* Deep slate */
+            --secondary-color: #334155;   /* Lighter slate */
+            --accent-color: #3b82f6;      /* Bright blue */
+            --accent-hover: #2563eb;
+            --bg-color: #f8fafc;          /* Very light gray/blue */
+            --text-color: #334155;
+            --border-color: #e2e8f0;
+            --code-bg: #f1f5f9;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            line-height: 1.6;
+            line-height: 1.7;
             margin: 0;
             padding: 0;
+            -webkit-font-smoothing: antialiased;
         }
 
+        /* --- Header & Hero Section --- */
         header {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e293b 100%);
             color: white;
-            padding: 60px 20px;
+            padding: 80px 20px;
             text-align: center;
+            border-bottom: 4px solid var(--accent-color);
         }
 
         header h1 {
-            margin: 0;
-            font-size: 2.5em;
+            margin: 0 auto;
+            max-width: 900px;
+            font-size: 2.8em;
             font-weight: 700;
+            letter-spacing: -0.02em;
         }
 
-        header p {
-            font-size: 1.2em;
+        header p.subtitle {
+            font-size: 1.25em;
             font-weight: 300;
-            margin-top: 10px;
-            opacity: 0.9;
+            margin-top: 15px;
+            color: #cbd5e1;
         }
 
+        header p.author {
+            font-size: 1em;
+            margin-top: 25px;
+            color: #94a3b8;
+        }
+
+        header strong {
+            color: white;
+        }
+
+        /* --- Action Buttons --- */
+        .action-links {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: all 0.2s ease;
+        }
+
+        .btn-github {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        .btn-github:hover {
+            background-color: #f1f5f9;
+            transform: translateY(-2px);
+        }
+
+        .btn-colab {
+            background-color: #f9ab00; /* Google Colab Yellow */
+            color: #fff;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .btn-colab:hover {
+            background-color: #e39d00;
+            transform: translateY(-2px);
+        }
+
+        /* --- Main Content Container --- */
         main {
             max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
+            margin: -40px auto 60px auto;
             background: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 50px 60px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            position: relative;
         }
 
         h2 {
             color: var(--primary-color);
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 8px;
-            margin-top: 40px;
+            font-size: 1.8em;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 50px;
+            margin-bottom: 20px;
         }
 
         h3 {
             color: var(--secondary-color);
-            margin-top: 25px;
+            font-size: 1.3em;
+            margin-top: 35px;
         }
 
         p {
             margin-bottom: 1.5em;
         }
 
-        /* Styling for the image placeholders */
+        /* --- Math Formula Boxes --- */
+        .formula-box {
+            background-color: var(--bg-color);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px 25px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+        }
+
+        /* --- Images & Figures --- */
         .image-container {
-            margin: 30px 0;
+            margin: 40px 0;
             text-align: center;
         }
 
         .image-container img {
             max-width: 100%;
             height: auto;
-            border-radius: 6px;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease;
         }
 
-        .image-placeholder {
-            background-color: #f8f9fa;
-            border: 2px dashed #adb5bd;
-            padding: 40px;
-            color: #6c757d;
-            border-radius: 6px;
-            font-weight: 600;
+        .image-container img:hover {
+            transform: scale(1.01);
+        }
+
+        .side-by-side {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .side-by-side .image-container {
+            flex: 1;
+            margin: 20px 0;
         }
 
         figcaption {
             font-size: 0.9em;
-            color: #666;
-            margin-top: 10px;
+            color: #64748b;
+            margin-top: 12px;
             font-style: italic;
         }
 
-        /* Data Tables */
+        /* --- Tables --- */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 25px 0;
+            margin: 30px 0;
             font-size: 0.95em;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
         table th, table td {
-            padding: 12px 15px;
+            padding: 14px 20px;
             border: 1px solid var(--border-color);
             text-align: center;
         }
 
         table th {
-            background-color: var(--primary-color);
-            color: white;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
             font-weight: 600;
         }
 
         table tr:nth-child(even) {
-            background-color: #f8f9fa;
+            background-color: #f8fafc;
         }
 
-        /* Code snippets */
+        /* --- Typography Extras --- */
         code {
-            background-color: #f1f3f5;
-            padding: 2px 6px;
+            background-color: var(--code-bg);
+            color: #e11d48;
+            padding: 3px 6px;
             border-radius: 4px;
-            font-family: monospace;
-            color: #d63384;
-            font-size: 0.9em;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85em;
         }
 
         ul {
@@ -144,15 +222,28 @@
         }
 
         li {
-            margin-bottom: 0.5em;
+            margin-bottom: 0.8em;
         }
 
         footer {
             text-align: center;
             padding: 30px;
-            color: #777;
+            color: #64748b;
             font-size: 0.9em;
             margin-top: 40px;
+            background-color: white;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 30px 20px;
+                margin: -20px 10px 40px 10px;
+            }
+            .side-by-side {
+                flex-direction: column;
+            }
+            header h1 { font-size: 2.2em; }
         }
     </style>
 </head>
@@ -160,35 +251,46 @@
 
     <header>
         <h1>Natural Language Understanding</h1>
-        <p>Binary Text Classification: Sports vs. Politics</p>
-        <p style="font-size: 1em; margin-top: 20px;">By <strong>Saher Dev</strong> | B.Tech CSE '27 @ IIT Jodhpur</p>
+        <p class="subtitle">Binary Text Classification: Sports vs. Politics</p>
+        
+        <div class="action-links">
+            <a href="https://github.com/saherdev017/NLU_Assignment1" target="_blank" class="btn btn-github">
+                View GitHub Repo
+            </a>
+            <a href="https://colab.research.google.com/drive/1B94xBQOkaz4sXKFPW1-UyZTNVd7PSX4R?usp=sharing" target="_blank" class="btn btn-colab">
+                Open in Google Colab
+            </a>
+        </div>
+
+        <p class="author">By <strong>Saher Dev</strong> | B.Tech CSE '27 @ IIT Jodhpur</p>
     </header>
 
     <main>
         <section id="introduction">
             <h2>1. Introduction & Data Collection</h2>
             <p>Text classification remains a foundational problem in Natural Language Understanding (NLU). This project details the design, implementation, and evaluation of a robust machine learning pipeline developed to classify news articles into two distinct categories: <strong>Sports</strong> and <strong>Politics</strong>.</p>
-            <p>The primary dataset was derived from the "News Category Dataset" on Kaggle. The data was aggressively filtered to isolate the two target classes, yielding a perfectly balanced subset of 10,000 records (5,000 Politics, 5,000 Sports). To maximize context, the <code>headline</code> and <code>short_description</code> features were concatenated into a unified text field.</p>
+            <p>The primary dataset was derived from the "News Category Dataset" on Kaggle. The data was aggressively filtered to isolate the two target classes, yielding a perfectly balanced subset of 10,000 records (5,000 Politics, 5,000 Sports). To maximize contextual density, the <code>headline</code> and <code>short_description</code> features were concatenated into a unified text field prior to vectorization.</p>
         </section>
 
         <section id="eda">
             <h2>2. Dataset Description and Analysis</h2>
             <p>Before applying machine learning algorithms, a rigorous preprocessing pipeline was executed. Text was lowercased, HTTP URLs were removed using Regular Expressions, and all numerical digits and punctuation marks were excised. Furthermore, a custom dictionary of stop words was purged during the tokenization phase.</p>
             
-            <div class="image-container">
-                    <img src="tfidf_pol.png" alt="TF-IDF Lollipop Chart">
-                    <figcaption>Figure 1: Lollipop charts showcasing the highest weighted TF-IDF words for politics class.</figcaption>
+            <p>To understand the semantic divergence between the two classes, term frequencies were analyzed. As seen below, the vocabulary space is highly orthogonal. The Politics category is dominated by legislative terminology (<em>"clinton", "gop", "obama"</em>), whereas the Sports category is heavily anchored by athletics (<em>"game", "nfl", "team"</em>).</p>
+
+            <div class="side-by-side">
+                <div class="image-container">
+                    <img src="tfidf_pol.png" alt="TF-IDF Politics Chart">
+                    <figcaption>Figure 1a: Highest weighted TF-IDF words for the Politics class.</figcaption>
                 </div>
-
-            <div class="image-container">
-                    <img src="tfidf_sports.png" alt="TF-IDF Lollipop Chart">
-                    <figcaption>Figure 1: Lollipop charts showcasing the highest weighted TF-IDF words for both class.</figcaption>
+                <div class="image-container">
+                    <img src="tfidf_sports.png" alt="TF-IDF Sports Chart">
+                    <figcaption>Figure 1b: Highest weighted TF-IDF words for the Sports class.</figcaption>
                 </div>
-
-            <p>To understand the semantic divergence between the two classes, term frequencies were analyzed. The vocabulary space is highly orthogonal. The Sports category is heavily anchored by terms such as <em>"game", "nfl", "team"</em>, and <em>"football"</em>. Conversely, the Politics category is dominated by legislative terminology like <em>"clinton", "gop", "obama"</em>, and <em>"senate"</em>.</p>
+            </div>
 
             <div class="image-container">
-                <img src="wordclouds.png" alt="TF-IDF Lollipop Chart">
+                <img src="wordclouds.png" alt="Class Word Clouds">
                 <figcaption>Figure 2: Dark-mode circular Word Clouds illustrating class-specific keyword density.</figcaption>
             </div>
         </section>
@@ -198,22 +300,26 @@
             <p>Machine learning algorithms require numerical inputs. To bridge the gap between human language and mathematical optimization, three distinct feature extraction algorithms were built completely from scratch, generating SciPy sparse matrices to ensure memory efficiency.</p>
 
             <h3>Bag of Words (BoW)</h3>
-            <p>The Bag of Words model treats every document as an unordered collection of term frequencies. A global vocabulary was generated, limited to the top 10,000 features. For a document \( d \) and a term \( t \), the BoW feature is simply the term count \( f_{t,d} \).</p>
+            <p>The Bag of Words model treats every document as an unordered collection of term frequencies. A global vocabulary was generated, limited to the top 10,000 features. For a document \( d \) and a term \( t \), the BoW feature is simply the term count:</p>
+            <div class="formula-box">
+                $$ \text{BoW}(t, d) = f_{t,d} $$
+            </div>
 
             <h3>Term Frequency - Inverse Document Frequency (TF-IDF)</h3>
             <p>TF-IDF penalizes terms that appear uniformly across the entire dataset, amplifying the weight of contextually significant, rare words. The custom implementation defines TF-IDF as:</p>
-            <p style="text-align: center; font-size: 1.2em;">
+            <div class="formula-box">
                 $$ \text{TF-IDF}(t, d) = \left( \frac{f_{t,d}}{\sum_{t' \in d} f_{t',d}} \right) \times \log\left(\frac{N}{1 + df_t}\right) $$
-            </p>
-            <p>Strict \( L_2 \) Normalization was applied mathematically to prevent longer documents from possessing disproportionately large feature vectors.</p>
+            </div>
+            <p>To prevent longer documents from possessing disproportionately large feature vectors, strict \( L_2 \) Normalization was applied mathematically:</p>
+            <div class="formula-box">
+                $$ \hat{v} = \frac{v}{\sqrt{\sum_{i=1}^{|V|} v_i^2}} $$
+            </div>
 
             <h3>N-Grams (TF-IDF with Bigrams)</h3>
             <p>Unigrams fail to capture local context (e.g., "white house" vs. "white" and "house"). The tokenization function was expanded to support bigrams by appending adjacent word pairs. To accommodate the exponential explosion of the feature space, the max features limit was expanded to 15,000.</p>
 
             <div class="image-container">
-    
-                    <img src="vocab_size.png" alt="TF-IDF Lollipop Chart">
-               
+                <img src="vocab_size.png" alt="Vocabulary Size Chart">
                 <figcaption>Figure 3: Vocabulary size constraints applied to the three feature representation matrices.</figcaption>
             </div>
         </section>
@@ -221,11 +327,24 @@
         <section id="models">
             <h2>4. Machine Learning Techniques</h2>
             <p>Three classical machine learning models were trained on the engineered features using an 80/20 train-test split.</p>
-            <ul>
-                <li><strong>Multinomial Naive Bayes:</strong> A probabilistic classifier founded on Bayes' Theorem, heavily utilized in NLP due to its assumption of feature independence. Laplace smoothing was utilized to handle out-of-vocabulary words.</li>
-                <li><strong>Logistic Regression (SGD):</strong> A linear model that maps a continuous output to a valid probability distribution using the Sigmoid function. It is highly effective in high-dimensional sparse spaces because it learns to shrink the weights of irrelevant words.</li>
-                <li><strong>Linear Support Vector Machine (SVM):</strong> The Linear SVM seeks to find the optimal hyperplane that maximizes the margin of separation between the Politics and Sports data points, minimizing the Hinge Loss with \( L_2 \) regularization.</li>
-            </ul>
+            
+            <h3>1. Multinomial Naive Bayes</h3>
+            <p>A probabilistic classifier founded on Bayes' Theorem, heavily utilized in NLP due to its assumption of feature independence. Laplace smoothing (\( \alpha = 1 \)) was utilized to handle out-of-vocabulary words. It calculates the probability of a class \( c \) given a document \( d \):</p>
+            <div class="formula-box">
+                $$ P(c \mid d) \propto P(c) \prod_{i=1}^{n} P(t_i \mid c) $$
+            </div>
+
+            <h3>2. Logistic Regression (SGD)</h3>
+            <p>A linear model that maps a continuous output to a valid probability distribution using the Sigmoid function. It is highly effective in high-dimensional sparse spaces because it implicitly learns to shrink the weights of irrelevant words.</p>
+            <div class="formula-box">
+                $$ \sigma(z) = \frac{1}{1 + e^{-(\mathbf{w}^T\mathbf{x} + b)}} $$
+            </div>
+
+            <h3>3. Linear Support Vector Machine (SVM)</h3>
+            <p>The Linear SVM seeks to find the optimal hyperplane that maximizes the margin of separation between the Politics and Sports data points. It operates by minimizing the Hinge Loss with \( L_2 \) regularization:</p>
+            <div class="formula-box">
+                $$ \min_{\mathbf{w}, b} \frac{1}{2}||\mathbf{w}||^2 + C \sum_{i=1}^{N} \max(0, 1 - y_i(\mathbf{w}^T\mathbf{x}_i + b)) $$
+            </div>
         </section>
 
         <section id="results">
@@ -264,21 +383,22 @@
             </table>
 
             <div class="image-container">
-               <img src="comp_bar.png" alt="TF-IDF Lollipop Chart">
-                <figcaption>Figure 4: Grouped bar chart comparing the test accuracies of all 9 algorithmic combinations.</figcaption>
+               <img src="comp_bar.png" alt="Performance Comparison Bar Chart">
+               <figcaption>Figure 4: Grouped bar chart comparing the test accuracies of all 9 algorithmic combinations.</figcaption>
             </div>
 
             <h3>Analysis</h3>
             <p>For gradient-based models (Logistic Regression and SVM), TF-IDF and N-grams provided the necessary normalization to stabilize the weights, allowing them to achieve peak performance. The addition of Bigrams marginally improved the SVM's accuracy (98.05%) by capturing multi-word context, but slightly degraded Naive Bayes, likely because adding 5,000 bi-gram features increased sparsity and violated the algorithm's core assumption of feature independence.</p>
 
-            <div class="image-container">
-                <img src="conf_matrix.png" alt="TF-IDF Lollipop Chart">
-                <figcaption>Figure 5: Normalized Confusion Matrix for the SVM, demonstrating minimal false predictions.</figcaption>
-            </div>
-
-            <div class="image-container">
-               <img src="lc_all.png" alt="TF-IDF Lollipop Chart">
-                <figcaption>Figure 6: Learning curves illustrating stability and convergence between Training and Validation folds.</figcaption>
+            <div class="side-by-side">
+                <div class="image-container">
+                    <img src="conf_matrix.png" alt="SVM Confusion Matrix">
+                    <figcaption>Figure 5: Normalized Confusion Matrix for the SVM, demonstrating minimal false predictions.</figcaption>
+                </div>
+                <div class="image-container">
+                   <img src="lc_all.png" alt="Learning Curves">
+                   <figcaption>Figure 6: Learning curves illustrating stability and convergence between Training and Validation folds.</figcaption>
+                </div>
             </div>
         </section>
 
