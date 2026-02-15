@@ -8,7 +8,7 @@
 
 > A robust Natural Language Understanding (NLU) pipeline designed to classify journalistic text into binary categories using from-scratch mathematical feature engineering and classical machine learning algorithms.
 
-🌐 **[View the Live Project Webpage Here]((Insert your GitHub Pages Link Here))**
+🌐 **[View the Live Project Webpage Here](https://saherdev017.github.io/NLU_Assignment1/)**
 
 ---
 
