@@ -79,8 +79,8 @@ To run this pipeline locally on your machine:
 
 1. **Clone the repository:**
 ```bash
-git clone [https://github.com/YourUsername/YourRepositoryName.git](https://github.com/YourUsername/YourRepositoryName.git)
-cd YourRepositoryName
+git clone https://github.com/saherdev017/NLU_Assignment1
+cd NLU_Assignment1
 
 ```
 
@@ -108,11 +108,5 @@ Indian Institute of Technology (IIT) Jodhpur
 ```
 
 ***
-
-### Next Steps:
-1. Paste this into your repository as `README.md`.
-2. Don't forget to swap out the `(Insert your GitHub Pages Link Here)` near the top with your actual live website link! 
-
-Would you like me to help you brainstorm any specific talking points or potential questions your professor might ask you during a presentation or viva for this project?
 
 ```
